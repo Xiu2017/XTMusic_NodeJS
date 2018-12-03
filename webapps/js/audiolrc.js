@@ -57,8 +57,8 @@ function parseLyric(){
 //以下变量仅用于playlrc()方法和父页面的showLrc()方法
 var setDelayTime = 0; //设置歌词同步的延时
 var num          = 0; //初始化歌词从第0行开始同步
-var minsize      = 13; //设置最小字体
-var maxsize      = 13; //设置最大字体
+var minsize      = 14; //设置最小字体
+var maxsize      = 14; //设置最大字体
 
 //同步歌词，jump为是否点击了进度条进行歌词跳转的参数
 function playlrc(jump){
@@ -82,6 +82,7 @@ function playlrc(jump){
         while(audio.currentTime >= (lrctime[num+1]+setDelayTime-0.2)) {num++;}
         if(num == 0){
             document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
         }else{
             $("ul li:eq("+num+")").css('fontSize',maxsize+"px");
             $("ul li:eq("+(num-1)+")").css('fontSize',minsize+"px");
@@ -112,7 +113,11 @@ function playlrc(jump){
         //如果歌曲时间存在，按时间遍历歌词
         if(audio.currentTime && audio.currentTime >= (lrctime[num]+setDelayTime-0.2)){
             //当前歌词滚动动画，字体变大动画，字体颜色的设置
-            $("html,body").animate({"scrollTop": liarray[num]},200);
+            if(window.parent.isShow == 1){
+                $("html,body").animate({"scrollTop": liarray[num]},200);
+            }else{
+                $("html,body").animate({"scrollTop": liarray[num]+40},200);
+            }
             $("ul li:eq("+num+")").animate({fontSize: maxsize+"px"},200);
             document.getElementById("li"+num).style.color = geci;
 
@@ -137,7 +142,8 @@ function clearplay(){
     //清空歌词界面，并定位到顶部，提示用户找不到歌词文件
     audiolrc.innerHTML = "";
     document.body.scrollTop = 0;
-    nolrc.innerText = "找不到歌词文件";
+    document.documentElement.scrollTop = 0;
+    nolrc.innerText = "找不到歌词";
 
     //一段时间后显示标语
     slogan = setTimeout(function(){

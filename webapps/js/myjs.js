@@ -43,6 +43,9 @@ function search(next) {
 			}
 		}
 	});
+	if(isShow != 1){
+		showLrc();
+	}
 }
 
 //网页加载完成时监听搜索框的聚集事件
@@ -449,7 +452,7 @@ var isShow = 1; //用于存储歌词界面的展开状态
 
 //点击歌词展开按钮执行的操作
 function showLrc() {
-	var flashSpeed = 300; //歌词界面展开的速度设置
+	var flashSpeed = 500; //歌词界面展开的速度设置
 	//如果歌曲没有展开
 	if (isShow == 1) {
 		//执行展开动画
@@ -465,10 +468,12 @@ function showLrc() {
 		$('#audiolrc').contents().find('body').css('marginLeft', '-20px');
 		$('#audiolrc').contents().find('html').attr({ onmouseover: "showdelrc(1)", onmouseout: "showdelrc(0)" });
 		$('#audiolrc').contents().find('ul').css('margin', '260px 0px 260px 0px');
-		$('#audiolrc').contents().find('#nolrc').css('marginTop', '130px');
-		$('#audiolrc').contents().find('#nolrc').css('fontSize', '22px');
-		$('#audiolrc').contents().find('#audioinfo').css('display', 'block');
-		$('#audiolrc').contents().find('.delrc').css('top', '46%');
+		$('#audiolrc').contents().find('#nolrc').css('marginTop', '60px');
+		$('#audiolrc').contents().find('#nolrc').animate({'fontSize': '32px'}, flashSpeed);
+		//$('#audiolrc').contents().find('#nolrc').css('fontSize', '22px');
+		//$('#audiolrc').contents().find('#audioinfo').animate({'opacity': '1'}, flashSpeed);
+		//$('#audiolrc').contents().find('#audioinfo').css('display', 'block');
+		//$('#audiolrc').contents().find('.delrc').css('top', '46%');
 		window.frames["audiolrc"].maxsize = 20;
 		isShow = 0; //重置歌词展开状态
 
@@ -487,9 +492,11 @@ function showLrc() {
 		$('#audiolrc').contents().find('html').removeAttr('onmouseover', 'onmouseout');
 		$('#audiolrc').contents().find('ul').css('margin', '145px 0px');
 		$('#audiolrc').contents().find('#nolrc').css('marginTop', '0px');
-		$('#audiolrc').contents().find('#nolrc').css('fontSize', '18px');
-		$('#audiolrc').contents().find('#audioinfo').css('display', 'none');
-		$('#audiolrc').contents().find('.delrc').css('top', '30%');
+		$('#audiolrc').contents().find('#nolrc').animate({'fontSize': '18px'}, flashSpeed);
+		//$('#audiolrc').contents().find('#nolrc').css('fontSize', '18px');
+		//$('#audiolrc').contents().find('#audioinfo').animate({'opacity': '0'}, flashSpeed);
+		//$('#audiolrc').contents().find('#audioinfo').css('display', 'none');
+		//$('#audiolrc').contents().find('.delrc').css('top', '20%');
 		window.frames["audiolrc"].maxsize = 14;
 		isShow = 1;//重置歌词展开状态
 		window.frames["audiolrc"].playlrc(1);

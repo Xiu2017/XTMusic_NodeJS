@@ -19,7 +19,7 @@ ul{
     margin          : 145px 0px;
 }
 li{
-    font-size : 13px;
+    font-size : 14px;
     padding   : 13px 0px;
     color     : #666666;
 }
@@ -34,7 +34,7 @@ li{
 }
 #audioinfo{
     position : fixed;
-    display  : none;
+    opacity  : 0;
     top      : 0px;
     left     : 0px;
     right    : 0px;
@@ -73,7 +73,7 @@ li{
     height: 116px;
     display: none;
     position: fixed;
-    top: 30%;
+    top: 140px;
     right: 0px;
 }
 .de1,.de2{

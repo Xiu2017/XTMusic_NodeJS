@@ -91,7 +91,7 @@ function changeSrc(mode, num) {
     var vinylimg = window.parent.document.getElementById("vinylimg");
     var audioinfo = window.parent[1].document.getElementById("audioinfo");
 
-    if (mode != 0 || mode == 2) {
+    if (mode != 0) {
         playmode(this.mode, num);
         num = this.num;
     }

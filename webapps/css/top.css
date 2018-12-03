@@ -57,6 +57,7 @@
 /*--取消浏览器默认的聚焦样式--*/
 input{outline:none;}
 select{outline:none;}
+button{outline:none;}
 
 #all{
 	width    : 1000px;

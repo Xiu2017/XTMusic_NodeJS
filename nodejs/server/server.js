@@ -76,5 +76,5 @@ app.get('/getMusicUrl', async function (req,res) {
 /**
  * 开启服务
  */
-app.listen(80);
-console.log('服务开启：http://127.0.0.1:80');
+app.listen(3000);
+console.log('服务开启：http://127.0.0.1:3000');

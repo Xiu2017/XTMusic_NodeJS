@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/audiolist.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>Vue.config.productionTip=false</script>
 </head>
 <body onload="init()">
     <audio id="audio" >您的浏览器不支持audio标签</audio>
@@ -33,9 +34,6 @@
     <div class="now" onclick="now()" title="定位当前歌曲">&#xe83d;</div>
 </body>
     <script src="../js/base64utils.js"></script>
-    <script src="../js/jquery.js"></script>
-    <script src="../js/id3-minimized.js" type="text/javascript"></script>
+    <script src="../js-min/jquery.js"></script>
     <script src="../js/audiolist.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!-- <script rel="javascript" type="text/javascript" src="../js/av.js"></script> -->
 </html>
