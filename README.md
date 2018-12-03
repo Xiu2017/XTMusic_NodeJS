@@ -1,5 +1,5 @@
-# XTMusic_NodeJS
 ![Image text](https://raw.githubusercontent.com/Xiu2017/XTMusic_NodeJS/master/webapps/image/README/ic_launcher.png)
+# XTMusic_NodeJS
 基于NodeJS作为后端，少量Vue作为前端，前后端分离设计的一款在线播放器。
 
 # 效果图
