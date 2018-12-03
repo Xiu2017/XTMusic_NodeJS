@@ -1,0 +1,161 @@
+﻿*{
+    margin  : 0px;
+    padding : 0px;
+    cursor  : default;
+    color   : #DDDDDD;
+    -webkit-user-select: none;
+}
+::-webkit-scrollbar {
+    width : 8px;
+}
+::-webkit-scrollbar-track {
+    background-color : rgba(0,0,0,0);
+    border-radius    : 4px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius : 4px;
+    background    : #CCCCCC;
+}
+::-webkit-scrollbar-thumb:hover{
+    background : #BBBBBB;
+}
+::-ms-scrollbar {
+    width : 8px;
+}
+::-ms-scrollbar-track {
+    background-color : rgba(0,0,0,0);
+    border-radius    : 4px;
+}
+::-ms-scrollbar-thumb {
+    border-radius : 4px;
+    background    : #2F3238;
+}
+::-ms-scrollbar-thumb:hover{
+    background : #5D5F64;
+}
+/*--定义图标字体--*/
+@font-face{
+    font-family: 'icon';
+    src: url('../font/icon.ttf');
+}
+@font-face{
+    font-family: 'icon2';
+    src: url('../font/icon2.ttf');
+}
+body{
+    width       : 743px;
+    overflow-x  : hidden;
+    font-size   : 13px;
+    font-family : 微软雅黑;
+    user-select : none;
+    cursor      : default;
+    padding     : 0px 12px 0px 12px;
+    -webkit-user-select:none;
+    background-color: rgba(0, 0, 0, 0);
+}
+table{
+    width : 743px;
+}
+#litop td{
+    height           : 30px;
+    line-height      : 30px;
+    color            : black;
+    padding-left     : 10px;
+    background-color : rgba(238, 238, 238, 0.6);
+}
+#number{
+    width : 30px;
+}
+#singer{
+    width : 148px;
+}
+#album{
+    width : 187px;
+}
+#list{
+    border-spacing : 0px;
+    table-layout   : fixed;
+}
+#list tr{
+    height : 39px;
+}
+#list tr:hover{
+    background-color : rgba(209, 58, 49, 0.125);
+}
+#list tr td{
+    /* border-bottom : 1px solid #DDDDDDCC; */
+}
+#list tr td:nth-child(1){
+    width      : 44px;
+    text-align : center;
+    color      : #666666;
+}
+#list tr td:nth-child(2){
+    text-overflow : ellipsis;
+    overflow      : hidden; 
+    white-space   : nowrap;
+    padding-left  : 10px;
+    padding-right : 20px;
+    color: black;
+}
+#list tr td:nth-child(3){
+    width         : 148px;
+    padding-left  : 12px;
+    color      : #666666;
+    text-overflow : ellipsis;
+    overflow      : hidden; 
+    white-space   : nowrap;
+}
+#list tr td:nth-child(4){
+    width         : 188px;
+    padding-left  : 12px;
+    color      : #666666;
+    text-overflow : ellipsis;
+    overflow      : hidden; 
+    white-space   : nowrap;
+}
+#list tr td[value="gif"]{
+    background : url('../image/playing.gif') no-repeat center;
+    color      : rgba(0,0,0,0);
+}
+#list tr td[value="png"]{
+    background : url('../image/pause.png') no-repeat center;
+    color      : rgba(0,0,0,0);
+}
+#addfiles{
+    width      : 160px;
+    height     : 110px;
+    margin-top : 160px;
+}
+#addfiles span{
+    display    : block;
+    margin-top : 20px;
+    font-size  : 16px;
+}
+.addfiles{
+    width            : 100px;
+    height           : 24px;
+    margin           : 20px 0px 20px 0px;
+    line-height      : 24px;
+    border           : 1px solid #0F536B;
+    background-color : #158AB9;
+}
+.addfiles:hover{
+    cursor : pointer;
+}
+.now{
+    width       : 20px;
+    height      : 20px;
+    font-size   : 20px;
+    font-family : 'icon2';
+    line-height : 20px;
+    text-align  : center;
+    position    : fixed;
+    bottom      : 10px;
+    right       : 4px;
+    color       : #AAA;
+    display     : none;
+}
+.now:hover{
+    color : #19B5F0;
+}
