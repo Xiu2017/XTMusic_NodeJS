@@ -3,6 +3,7 @@ var limit = 20;
 var offset = 1;
 var type = "netease";
 var endOffset = false;
+var ended = false;
 
 function nextPage() {
 	offset++;
@@ -190,11 +191,12 @@ function play_time() {
 	probar.style.backgroundSize = Math.round(marginleft * audio.currentTime * 100) / 100 + 5 + "px 4px";
 
 	//当前歌曲播放结束后，如果为单曲循环模式，则重新播放当前歌曲
-	if (audio.ended && window.frames["audiolist"].mode == 2) {
+	if (audio.ended && !ended && window.frames["audiolist"].mode == 2) {
+		ended = true;
 		window.frames["audiolist"].changeSrc(2, window.frames["audiolist"].num);
-
 		//否则播放下一首
-	} else if (audio.ended) {
+	} else if (audio.ended && !ended) {
+		ended = true;
 		play_next();
 	}
 }

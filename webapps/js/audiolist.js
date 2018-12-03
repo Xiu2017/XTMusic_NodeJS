@@ -73,6 +73,7 @@ function playSong(id) {
                 $('#audio')[0].pause();
                 window.parent.play_pause();
                 getLyric(num);
+                window.parent.ended = false;
             }
         }
     });
