@@ -63,8 +63,9 @@ var table = new Vue({
 
 function playSong(id) {
     let type = window.parent.type;
+    let url = encodeURI('/getMusicUrl?param=' + id + '&type=' + type);
     $.ajax({
-        url: '/getMusicUrl?param=' + id + '&type=' + type,
+        url: url,
         success: function (result) {
             if (result == "-1" || !(result.indexOf('mp3') >= 0 || result.indexOf('m4a') >= 0)) {
                 window.parent.play_next();
@@ -151,8 +152,9 @@ function getLyric(idx) {
         } else {
             duration = Math.round(duration) * 1000;
             let song = table.songs[idx];
+            let url = urlEncode('/getLyric?name=' + song.artist + ' - ' + song.title + '&duration=' + duration);
             $.ajax({
-                url: '/getLyric?name=' + song.artist + ' - ' + song.title + '&duration=' + duration,
+                url: url,
                 success: function (result) {
                     if (result != '-1') {
                         result = new Base64().decode(result);
@@ -216,6 +218,22 @@ function convertTime(time) {
     var sec = Math.round(time) % 60;
     if (sec < 10) sec = "0" + sec;
     return hou + "" + min + ":" + sec;
+}
+
+
+
+/**
+ * URL编码
+ * @param {要编码的URL} url 
+ */
+function urlEncode(url){
+    url = encodeURIComponent(url);
+    url = url.replace(/\%3A/g, ":");
+    url = url.replace(/\%2F/g, "/");
+    url = url.replace(/\%3F/g, "?");
+    url = url.replace(/\%3D/g, "=");
+    url = url.replace(/\%26/g, "&");
+    return url;
 }
 
 /*function hiddenNow(num){

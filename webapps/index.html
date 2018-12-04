@@ -1,16 +1,18 @@
 ﻿<!DOCTYPE html>
 <html onclick="hiddenwin()">
-	<head>
-		<meta charset="UTF-8">
-		<title>炫听音乐</title>
-		<link rel="shortcut icon" href="favicon.ico" >
-		<link rel="stylesheet" type="text/css" href="./css/top.css" />
-		<link rel="stylesheet" type="text/css" href="./css/center_left.css" />
-		<link rel="stylesheet" type="text/css" href="./css/center_right.css" />
-		<link rel="stylesheet" type="text/css" href="./css/bottom.css" />
-		<script src="./js-min/jquery.js"></script>
-		<script rel="javascript" type="text/javascript" src="./js/myjs.js"></script>
-	</head>
+
+<head>
+	<meta charset="UTF-8">
+	<title>炫听音乐</title>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="./css/top.css" />
+	<link rel="stylesheet" type="text/css" href="./css/center_left.css" />
+	<link rel="stylesheet" type="text/css" href="./css/center_right.css" />
+	<link rel="stylesheet" type="text/css" href="./css/bottom.css" />
+	<script src="./js-min/jquery.js"></script>
+	<script rel="javascript" type="text/javascript" src="./js/myjs.js"></script>
+</head>
+
 <body id="body" onload="init()">
 	<div id="bg-low" style="z-index:-2"></div>
 	<div id="bg" style="z-index:-1"></div>
@@ -48,20 +50,20 @@
 				<li id="last" onclick="play_last()">&#xe82d;</li>
 				<li id="play" onclick="play_pause()">&#xe831;</li>
 				<li id="next" onclick="play_next()">&#xe82e;</li>
-			<ul>
-			<div id="pro">
-				<span id="song_name">炫听音乐</span>
-				<span id="song_time">00:00/00:00</span>
-				<div id="pro_bar" onclick="bar_val()"></div>
-				<div id="pro_time"></div>
-			</div>
-			<div id="menu">
-				<div id="playmode" onclick="setPlayMode(0);event.stopPropagation();" title="播放模式">&#xe83f;</div>
-				<!-- <div id="volume" onclick="mute()" title="静音/还原">&#xe802;</div>
+				<ul>
+					<div id="pro">
+						<span id="song_name">炫听音乐</span>
+						<span id="song_time">00:00/00:00</span>
+						<div id="pro_bar" onclick="bar_val()"></div>
+						<div id="pro_time"></div>
+					</div>
+					<div id="menu">
+						<div id="playmode" onclick="setPlayMode(0);event.stopPropagation();" title="播放模式">&#xe83f;</div>
+						<!-- <div id="volume" onclick="mute()" title="静音/还原">&#xe802;</div>
 				<div id="volbar" onclick="setVolume()">
 					<div id="volvalue"></div>
 				</div> -->
-			</div>
+					</div>
 		</div>
 		<div id="selecttime">
 			<ul>
@@ -85,4 +87,5 @@
 		<h4>扫码下载APK</h4>
 	</div>
 </body>
+
 </html>

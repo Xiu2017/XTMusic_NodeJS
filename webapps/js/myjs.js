@@ -27,8 +27,9 @@ function search(next) {
 	if (keyword == "") {
 		keyword = "流行";
 	}
+	let url = urlEncode('getMusicList?keyword=' + keyword + '&limit=' + limit + '&offset=' + offset + '&type=' + type);
 	$.ajax({
-		url: 'getMusicList?keyword=' + keyword + '&limit=' + limit + '&offset=' + offset + '&type=' + type,
+		url: url,
 		success: function (result) {
 			if (result != "-1") {
 				let songs = window.frames["audiolist"].table.songs;
@@ -529,3 +530,19 @@ function openlrc(num) {
 $(window).bind('beforeunload', function () {
 	return '您可能有数据没有保存';
 });
+
+
+
+/**
+ * URL编码
+ * @param {要编码的URL} url 
+ */
+function urlEncode(url){
+    url = encodeURIComponent(url);
+    url = url.replace(/\%3A/g, ":");
+    url = url.replace(/\%2F/g, "/");
+    url = url.replace(/\%3F/g, "?");
+    url = url.replace(/\%3D/g, "=");
+    url = url.replace(/\%26/g, "&");
+    return url;
+}

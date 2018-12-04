@@ -25,6 +25,7 @@
 	background-position : center;
 	position: absolute;
 	filter:blur(12px);
+	/* filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='12'); */
 }
 
 /*--打开及关闭动画--*/

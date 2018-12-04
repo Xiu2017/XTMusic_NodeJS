@@ -19,7 +19,7 @@ class RequestUtils{
     request(method, url, formData){
         return new Promise((resolve, reject) => {
             let request = require('request');
-            url = this.urlEncode(url);
+            //url = this.urlEncode(url);
             request({
                 "url": url,
                 "method": method,
@@ -34,14 +34,14 @@ class RequestUtils{
      * URL编码
      * @param {要编码的URL} url 
      */
-    urlEncode(url){
-        url = encodeURIComponent(url);
-        url = url.replace(/\%3A/g, ":");
-        url = url.replace(/\%2F/g, "/");
-        url = url.replace(/\%3F/g, "?");
-        url = url.replace(/\%3D/g, "=");
-        url = url.replace(/\%26/g, "&");
-        return url;
-    }
+    // urlEncode(url){
+    //     url = encodeURIComponent(url);
+    //     url = url.replace(/\%3A/g, ":");
+    //     url = url.replace(/\%2F/g, "/");
+    //     url = url.replace(/\%3F/g, "?");
+    //     url = url.replace(/\%3D/g, "=");
+    //     url = url.replace(/\%26/g, "&");
+    //     return url;
+    // }
 }
 module.exports = new RequestUtils;
