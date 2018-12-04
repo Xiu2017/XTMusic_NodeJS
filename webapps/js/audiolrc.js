@@ -15,6 +15,10 @@ document.onkeydown = function spacePlay(event){
     }
 };
 
+window.onresize = function(){
+    positionLrc();
+};
+
 //歌词的读取与处理
 function parseLyric(){
     //如果audiolist.html页面传过来的歌词为空，则跳出
@@ -42,17 +46,25 @@ function parseLyric(){
         }
     }
 
-    //清空歌词坐标，并重新计算新的坐标
-    liarray    = new Array();
-    liarray[0] = parseInt($("ul li:eq(0)").get(0).offsetHeight);
-    for(var i=1; i<=lrctime.length-1; i++){
-        liarray[i] = liarray[i-1]+parseInt($("ul li:eq("+i+")").get(0).offsetHeight);
-    }
-
+    //歌词行定位
+    positionLrc();
     //开始同步歌词
     playlrc();
 }
 
+//歌词行定位
+function positionLrc(){
+    if(lrctime.length > 0){
+        setTimeout(function(){
+            //清空歌词坐标，并重新计算新的坐标
+            liarray    = new Array();
+            liarray[0] = parseInt($("ul li:eq(0)").get(0).offsetHeight);
+            for(var i=1; i<=lrctime.length-1; i++){
+                liarray[i] = liarray[i-1]+parseInt($("ul li:eq("+i+")").get(0).offsetHeight);
+            }
+        }, 500);
+    }
+}
 
 //以下变量仅用于playlrc()方法和父页面的showLrc()方法
 var setDelayTime = 0; //设置歌词同步的延时
@@ -114,9 +126,9 @@ function playlrc(jump){
         if(audio.currentTime && audio.currentTime >= (lrctime[num]+setDelayTime-0.2)){
             //当前歌词滚动动画，字体变大动画，字体颜色的设置
             if(window.parent.isShow == 1){
-                $("html,body").animate({"scrollTop": liarray[num]},200);
+                $("html,body").animate({"scrollTop": liarray[num]+10+(num/3)},200);
             }else{
-                $("html,body").animate({"scrollTop": liarray[num]+40},200);
+                $("html,body").animate({"scrollTop": liarray[num]+40+(num/6)},200);
             }
             $("ul li:eq("+num+")").animate({fontSize: maxsize+"px"},200);
             document.getElementById("li"+num).style.color = geci;
