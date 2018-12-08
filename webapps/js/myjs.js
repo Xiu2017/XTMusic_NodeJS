@@ -15,7 +15,7 @@ function search(next) {
 	if (!next) {
 		offset = 1;
 		window.frames["audiolist"].table.songs = null;
-		if (keyword != $("#search").val()) {
+		if (keyword != $("#search").val() && type != $("#select option:selected").val()) {
 			window.frames["audiolist"].num = 0;
 			window.frames["audiolist"].lastli = -1;
 			window.frames["audiolist"].$("td").removeAttr("style");
@@ -60,6 +60,11 @@ function init() {
 			$('#search_button').click();
 		}
 	});
+	$("#select").change(function(){
+		search();
+		changeTheme(type);
+	});
+	changeTheme(type);
 }
 
 //当输入框聚焦时，去除提示文本
@@ -347,13 +352,15 @@ function bar_val() {
 
 //点击关闭按钮执行的操作
 function closeDown() {
-	var all = document.getElementById("all");
+	//var all = document.getElementById("all");
 	var audio = window.frames["audiolist"].document.getElementById("audio");
-	var body = document.getElementById("body");
-	audio.pause();
-	body.style.backgroundImage = "url('./image/thinks.png')";
-	all.style.animation = "closeFlash 500ms forwards";
-	setTimeout("window.open('','_self');window.close()", 2400);
+	//var body = document.getElementById("body");
+	if(!audio.paused){
+		play_pause();
+	}
+	//body.style.backgroundImage = "url('./image/thinks.png')";
+	//all.style.animation = "closeFlash 500ms forwards";
+	//setTimeout("window.open('','_self');window.close()", 2400);
 }
 
 //点击定时器按钮执行显示选择框的操作
@@ -389,9 +396,10 @@ function setTimeOff(timemin) {
 			clearInterval(timing);
 			closeDown();
 			return;
-		} else if (time <= 60) {
-			st.style.color = "#DD111C";
-		}
+		} 
+		// else if (time <= 60) {
+		// 	st.style.color = "#DD111C";
+		// }
 		st.innerText = convertTime(time);
 		time--;
 	}, 1000);
@@ -467,12 +475,14 @@ function showLrc() {
 		$('.open').animate({ 'marginTop': '230px' }, flashSpeed);
 		$('.open').html('&#xf105;');
 		$('#center_right iframe').animate({ 'width': '500px', 'height': '410px', 'marginTop': '36px', 'marginRight': '-180px' }, flashSpeed);
-		$('#audiolrc').contents().find('body').css('width', '500px');
-		$('#audiolrc').contents().find('body').css('marginLeft', '-20px');
+		//$('#audiolrc').contents().find('body').css('width', '500px');
+		//$('#audiolrc').contents().find('body').css('marginLeft', '-20px');
+		$('#audiolrc').contents().find('body').animate({'width': '500px', 'marginLeft': '-20px'}, flashSpeed);
 		$('#audiolrc').contents().find('html').attr({ onmouseover: "showdelrc(1)", onmouseout: "showdelrc(0)" });
-		$('#audiolrc').contents().find('ul').css('margin', '260px 0px 260px 0px');
-		$('#audiolrc').contents().find('#nolrc').css('marginTop', '60px');
-		$('#audiolrc').contents().find('#nolrc').animate({'fontSize': '32px'}, flashSpeed);
+		//$('#audiolrc').contents().find('ul').css('margin', '260px 0px 260px 0px');
+		//$('#audiolrc').contents().find('#nolrc').css('marginTop', '60px');
+		$('#audiolrc').contents().find('ul').animate({'margin': '260px 0px 260px 0px'}, flashSpeed);
+		$('#audiolrc').contents().find('#nolrc').animate({'marginTop': '60px', 'fontSize': '32px'}, flashSpeed);
 		//$('#audiolrc').contents().find('#nolrc').css('fontSize', '22px');
 		//$('#audiolrc').contents().find('#audioinfo').animate({'opacity': '1'}, flashSpeed);
 		//$('#audiolrc').contents().find('#audioinfo').css('display', 'block');
@@ -490,12 +500,14 @@ function showLrc() {
 		$('.open').animate({ 'marginTop': '-250px' }, flashSpeed);
 		$('.open').html('&#xf104;');
 		$('#center_right iframe').animate({ 'width': '230px', 'height': '260px', 'marginTop': '-30px', 'marginRight': '0px' }, flashSpeed);
-		$('#audiolrc').contents().find('body').css('width', '189px');
-		$('#audiolrc').contents().find('body').css('marginLeft', '0px');
+		//$('#audiolrc').contents().find('body').css('width', '189px');
+		//$('#audiolrc').contents().find('body').css('marginLeft', '0px');
+		$('#audiolrc').contents().find('body').animate({'width': '189px', 'marginLeft': '0px'}, flashSpeed);
 		$('#audiolrc').contents().find('html').removeAttr('onmouseover', 'onmouseout');
-		$('#audiolrc').contents().find('ul').css('margin', '145px 0px');
-		$('#audiolrc').contents().find('#nolrc').css('marginTop', '0px');
-		$('#audiolrc').contents().find('#nolrc').animate({'fontSize': '18px'}, flashSpeed);
+		//$('#audiolrc').contents().find('ul').css('margin', '145px 0px');
+		//$('#audiolrc').contents().find('#nolrc').css('marginTop', '0px');
+		$('#audiolrc').contents().find('ul').animate({'margin': '145px 0px'}, flashSpeed);
+		$('#audiolrc').contents().find('#nolrc').animate({'marginTop': '0px','fontSize': '18px'}, flashSpeed);
 		//$('#audiolrc').contents().find('#nolrc').css('fontSize', '18px');
 		//$('#audiolrc').contents().find('#audioinfo').animate({'opacity': '0'}, flashSpeed);
 		//$('#audiolrc').contents().find('#audioinfo').css('display', 'none');

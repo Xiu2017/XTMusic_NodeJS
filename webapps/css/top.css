@@ -96,15 +96,23 @@ button{outline:none;}
 	color   : #FFF;
 	border  : none;
 	background-color : rgba(0, 0, 0, 0);
-	display: none;
+	cursor: pointer;
 }
-.trans{
-	margin  : 8px 0px 0px 8px;
+button.trans{
+	margin  : 8px 0px 0px -8px;
 	color   : #FFFFFF;
 	background-color: rgba(0, 0, 0, 0);
 	/* background-color : #272A33; */
 	padding: 2px 12px;
 	border  : none;
+}
+
+option.trans{
+	background-color: white;
+	color: black;
+}
+option.trans:hover{
+	background-color: rgba(209, 58, 49, 0.125)
 }
 .trans:hover{
 	color   : rgba(255, 255, 255, 0.533);
@@ -171,7 +179,7 @@ button{outline:none;}
 	padding    : 6px 0px;
 }
 #selecttime ul li:hover,#selectmode ul li:hover{
-	background-color: rgba(208, 59, 51, 0.314);
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 

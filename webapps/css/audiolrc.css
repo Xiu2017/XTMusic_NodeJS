@@ -63,7 +63,7 @@ li{
 }
 .span2 span:hover,.span3 span:hover{
     cursor : pointer;
-    color  : #D13A31;
+    opacity: 0.6;
 }
 .span3{
     margin-left : 20px;
@@ -85,7 +85,7 @@ li{
     margin-bottom: 17px;
 }
 .de1:hover,.de2:hover{
-    color: #D13A31;
+    opacity: 0.6;
 }
 .delrctime{
     font-size: 13px;

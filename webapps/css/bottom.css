@@ -38,7 +38,7 @@
 	width  : 42px;
 	height : 44px;
 	border-radius    : 23px;
-	background-color : rgb(155, 48, 43);
+	background-color : rgba(0,0,0,0.25);
 	padding-left     : 2px;
 }
 #pro{
@@ -54,7 +54,7 @@
 	background-size   : 0px;
 }
 #song_name{
-	max-width   : 430px;
+	max-width   : 560px;
 	max-height  : 18px;
 	font-size   : 14px;
 	float       : left;
@@ -74,7 +74,7 @@
 	background-image  : url('../image/pro_bar.png');
 	background-repeat : no-repeat;
 	background-size   : 0%;
-	background-color  : #9B302B;
+	background-color  : rgba(0,0,0,0.25);
 	border-radius     : 2px;
 	margin-top        : 32px;
 }

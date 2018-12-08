@@ -74,6 +74,16 @@ app.get('/getMusicUrl', async function (req,res) {
 });
 
 /**
+ * 获取专辑图片(酷狗)
+ */
+app.get('/getAlbumImg', async function (req,res) {
+    let param = req.query.param;
+    let api = require(CLASS_PATH + '/api/KugouApi.class');
+    let imgUrl = await api.getAlbumImg(param);
+    res.status(200).send(imgUrl);
+});
+
+/**
  * 开启服务
  */
 app.listen(3000);

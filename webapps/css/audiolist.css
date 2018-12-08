@@ -80,7 +80,7 @@ table{
     height : 39px;
 }
 #list tr:hover{
-    background-color : rgba(209, 58, 49, 0.125);
+    background-color : rgba(0, 0, 0, 0.05);
 }
 #list tr td{
     /* border-bottom : 1px solid #DDDDDDCC; */
@@ -114,12 +114,28 @@ table{
     overflow      : hidden; 
     white-space   : nowrap;
 }
-#list tr td[value="gif"]{
-    background : url('../image/playing.gif') no-repeat center;
+#list tr td[value="gif_netease"]{
+    background : url('../image/playing_netease.gif') no-repeat center;
     color      : rgba(0,0,0,0);
 }
-#list tr td[value="png"]{
+#list tr td[value="png_netease"]{
     background : url('../image/pause.png') no-repeat center;
+    color      : rgba(0,0,0,0);
+}
+#list tr td[value="gif_qq"]{
+    background : url('../image/playing_qq.gif') no-repeat center;
+    color      : rgba(0,0,0,0);
+}
+#list tr td[value="png_qq"]{
+    background : url('../image/pause_qq.png') no-repeat center;
+    color      : rgba(0,0,0,0);
+}
+#list tr td[value="gif_kugou"]{
+    background : url('../image/playing_kugou.gif') no-repeat center;
+    color      : rgba(0,0,0,0);
+}
+#list tr td[value="png_kugou"]{
+    background : url('../image/pause_kugou.png') no-repeat center;
     color      : rgba(0,0,0,0);
 }
 #addfiles{

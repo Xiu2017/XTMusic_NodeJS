@@ -5,7 +5,7 @@ var liarray  = new Array(); //用于保存歌词的Y坐标
 var playing  = null; //用于保存同步歌词定时器的变量
 var slogan   = null; //用于保存标语定时器的变量
 var songlrc  = ""; //保存歌词文件对象
-var geci     = "#D13A31"; //默认歌词颜色
+var geci     = "#000000"; //默认歌词颜色
 
 document.onkeydown = function spacePlay(event){ 
     var e = event || window.event || arguments.callee.caller.arguments[0];
@@ -132,11 +132,15 @@ function playlrc(jump){
             }
             $("ul li:eq("+num+")").animate({fontSize: maxsize+"px"},200);
             document.getElementById("li"+num).style.color = geci;
+            //document.getElementById("li"+num).style.fontWeight = "bold";
+            //document.getElementById("li"+num).style.textShadow = '0px 2px 4px #FFFFFF';
 
             //如果存在上一句歌词，则执行字体变小动画，还原字体颜色
             if(num != 0){
                 $("ul li:eq("+(num-1)+")").animate({fontSize: minsize+"px"},200);
                 document.getElementById("li"+(num-1)).style.color = "#666666";
+                //document.getElementById("li"+(num-1)).style.fontWeight = "normal";
+                //document.getElementById("li"+(num-1)).style.textShadow = '0px 0px 0px #FFFFFF';
             }
 
             num++;

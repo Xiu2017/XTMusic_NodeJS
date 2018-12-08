@@ -105,16 +105,20 @@ function changeSrc(mode, num) {
     $(audioinfo).find('.span1').html(song.title);
     $(audioinfo).find('.span2').html('歌手：<span onclick="jumplink(this)">' + (song.artist || '未知歌手') + '</span>');
     $(audioinfo).find('.span3').html('专辑：<span onclick="jumplink(this)">' + (song.album || '未知专辑') + '</span>');
-    if (song.album) {
+    if (song.image) {
         window.parent.document.getElementById('bg-low').style.backgroundImage = 'url(\"' + song.image + '\")';
         window.parent.document.getElementById('bg').style.backgroundImage = 'url(\"' + song.image + '\")';
         // window.parent.document.getElementById('bg').style.backgroundSize = '100% auto';
         // window.parent.document.getElementById('bg').style.backgroundPosition = 'center center';
         vinylimg.setAttribute('src', song.image);
-    } else {
+    } else if (window.parent.type == 'kugou'){
+        getAlbumImg(song.id);
+    }else{
         window.parent.document.getElementById('bg-low').style.backgroundImage = null;
         window.parent.document.getElementById('bg').style.backgroundImage = null;
         vinylimg.setAttribute('src', '../image/novinyl.png');
+        var vinyl = window.parent.document.getElementById("vinyl");
+        vinyl.style.backgroundImage = 'url(../image/Vinyl_'+window.parent.type+'.png)';
     }
 
 
@@ -131,8 +135,8 @@ function changeSrc(mode, num) {
         $("#li" + (lastli + 1) + " td:eq(1)").removeAttr("style");
         $("#li" + (lastli + 1) + " td:eq(0)").removeAttr("value");
     }
-    $("#li" + (num + 1) + " td:eq(1)").css("color", "#D13A31");
-    $("#li" + (num + 1) + " td:eq(0)").attr("value", "gif");
+    $("#li" + (num + 1) + " td:eq(1)").css("color", "rgb("+window.parent.color+")");
+    $("#li" + (num + 1) + " td:eq(0)").attr("value", "gif_"+window.parent.type);
 
     this.num = num;
     lastli = num;
@@ -141,6 +145,28 @@ function changeSrc(mode, num) {
     }
 
     playSong(song.id);
+}
+
+//获取专辑图片
+function getAlbumImg(id){
+    let url = encodeURI('/getAlbumImg?param=' + id);
+    $.ajax({
+        url: url,
+        success: function (result) {
+            var vinylimg = window.parent.document.getElementById("vinylimg");
+            if(result != null && result != '' && result != -1){
+                window.parent.document.getElementById('bg-low').style.backgroundImage = 'url(\"' + result + '\")';
+                window.parent.document.getElementById('bg').style.backgroundImage = 'url(\"' + result + '\")';
+                vinylimg.setAttribute('src', result);
+            }else{
+                window.parent.document.getElementById('bg-low').style.backgroundImage = null;
+                window.parent.document.getElementById('bg').style.backgroundImage = null;
+                vinylimg.setAttribute('src', '../image/novinyl.png');
+                var vinyl = window.parent.document.getElementById("vinyl");
+                vinyl.style.backgroundImage = 'url(../image/Vinyl_'+window.parent.type+'.png)';
+            }
+        }
+    });
 }
 
 //获取歌词
@@ -201,9 +227,9 @@ function playmode(mode, num) {
 }
 function playgif(val) {
     if (val == 1) {
-        $("#li" + (num + 1) + " td:eq(0)").attr("value", "gif");
+        $("#li" + (num + 1) + " td:eq(0)").attr("value", "gif_"+window.parent.type);
     } else {
-        $("#li" + (num + 1) + " td:eq(0)").attr("value", "png");
+        $("#li" + (num + 1) + " td:eq(0)").attr("value", "png_"+window.parent.type);
     }
 }
 
