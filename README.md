@@ -5,7 +5,9 @@
 
 目前在线接口支持网易云api、酷狗api和QQ音乐api
 
-体验地址：http://193.112.183.51/
+完整版体验地址：http://193.112.183.51/
+
+Lite版体验地址：http://193.112.183.51:3000/
 
 # 流程图
 ![Image text](https://raw.githubusercontent.com/Xiu2017/XTMusic_NodeJS/master/webapps/image/README/flow_chart.png)
