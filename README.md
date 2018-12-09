@@ -1,7 +1,7 @@
 # XTMusic_NodeJS
 ![Image text](https://raw.githubusercontent.com/Xiu2017/XTMusic_NodeJS/master/webapps/image/README/logo.png)
 
-基于NodeJS作为后端，少量Vue作为前端，前后端分离设计的一款在线播放器。
+基于NodeJS作为后端，少量Vue作为前端的一款在线播放器，界面用纯原生HTML/CSS/JavaScript/JQuery编写。
 
 目前在线接口支持网易云api、酷狗api和QQ音乐api
 
