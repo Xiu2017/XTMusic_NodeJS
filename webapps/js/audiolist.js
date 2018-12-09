@@ -1,45 +1,56 @@
-﻿var list = document.getElementById("list");
-var audio = window.parent.document.getElementById("audio");
-var song_name = window.parent.document.getElementById("song_name");
-var lyric = new Array();
-var musicname = new Array();
-var musictags = new Array();
-var musictitle = new Array();
-var singer = new Array();
-var album = new Array();
-var albumimg = new Array();
-var dataexist = new Array();
-var isRuning = false;
-var lastli = -1;
-var mode = 1;
-var num = 0;
+﻿var lastli = -1;  //上一首播放的歌曲的索引
+var num = 0;  //当前播放的歌曲的索引
+var mode = 1;  //播放模式：1 列表循环 2 单曲循环 3 随机播放
 
-function init() {
-    document.getElementById("audio").volume = 0.5;// The scroll event.
-
-    document.getElementById("audio").onerror = function () {
+/**
+ * 页面加载完成时初始化监听事件等
+ */
+$(function () {
+    //播放错误时跳到下一首
+    $("#audio")[0].onerror = function () {
         window.parent.play_next();
     };
-    $(window).scroll(function () {
-        // When scroll at bottom, invoked getData() function.
 
-        var htmlHeight = $(document).height();
+    //列表滚动到底部时加载下一页
+    $(window).scroll(function () {
+        let htmlHeight = $(document).height();
         //clientHeight是网页在浏览器中的可视高度，
-        var clientHeight = $(window).height();
+        let clientHeight = $(window).height();
         //scrollTop滚动条到顶部的垂直高度
-        var scrollTop = $(document).scrollTop();
+        let scrollTop = $(document).scrollTop();
         //通过判断滚动条的top位置与可视网页之和与整个网页的高度是否相等来决定是否加载内容；
-        var he = scrollTop + clientHeight;
+        let he = scrollTop + clientHeight;
         if (he >= htmlHeight * 0.98 && !window.parent.endOffset && table.songs != null && table.songs != undefined && table.songs.length < 200) {
             window.parent.nextPage();
         }
     });
-}
 
+    //定时器时间选择框和播放模式选择框的隐藏
+    document.onclick = function () {
+        window.parent.$("#selecttime,#selectmode").css("display", "none");
+    };
+
+    //按下空格键时，触发暂停/播放操作
+    document.onkeydown = function (event) {
+        let e = event || window.event || arguments.callee.caller.arguments[0];
+        //触发播放/暂停功能，并禁用浏览器默认操作
+        if (e && e.keyCode == 32) {
+            play_pause();
+            e.preventDefault();
+        }
+    };
+
+    //搜索默认列表
+    window.parent.$('#search_button').click();
+});
+
+/**
+ * 音乐列表数据的绑定
+ */
 var table = new Vue({
     el: '#list',
     data: {
-        songs: null
+        songs: {}
     },
     methods: {
         toTime: function (sec) {
@@ -61,6 +72,10 @@ var table = new Vue({
     }
 });
 
+/**
+ * 播放音乐
+ * @param {要播放音乐的id} id 
+ */
 function playSong(id) {
     let type = window.parent.type;
     let url = encodeURI('/getMusicUrl?param=' + id + '&type=' + type);
@@ -80,18 +95,18 @@ function playSong(id) {
     });
 }
 
-document.onkeydown = function spacePlay(event) {
-    var e = event || window.event || arguments.callee.caller.arguments[0];
-    if (e && e.keyCode == 32) {
-        window.parent.play_pause();
-        e.preventDefault();
-    }
-};
-
+/**
+ * 双击歌曲执行的操作
+ * @param {播放模式} mode 
+ * @param {索引} num 
+ */
 function changeSrc(mode, num) {
     if (table.songs == undefined) return;
-    var vinylimg = window.parent.document.getElementById("vinylimg");
-    var audioinfo = window.parent[1].document.getElementById("audioinfo");
+
+    let vinylimg = window.parent.$("#vinylimg");
+    let audioinfo = window.parent[1].$("#audioinfo");
+    let bg = window.parent.$('#bg');
+    let bgLow = window.parent.$('#bg-low');
 
     if (mode != 0) {
         playmode(this.mode, num);
@@ -99,77 +114,67 @@ function changeSrc(mode, num) {
     }
 
     let song = table.songs[num];
-
-    song_name.innerHTML = '<marquee behavior="alternate" truespeed="truespeed" scrolldelay="100" scrollamount="2">' + song.artist + ' - ' + song.title + '</marquee>';
-
-    $(audioinfo).find('.span1').html(song.title);
-    $(audioinfo).find('.span2').html('歌手：<span onclick="jumplink(this)">' + (song.artist || '未知歌手') + '</span>');
-    $(audioinfo).find('.span3').html('专辑：<span onclick="jumplink(this)">' + (song.album || '未知专辑') + '</span>');
+    window.parent.$("#song_name").html('<marquee behavior="alternate" truespeed="truespeed" scrolldelay="100" scrollamount="2">' + song.artist + ' - ' + song.title + '</marquee>');
+    audioinfo.find('.span1').html(song.title);
+    audioinfo.find('.span2').html('歌手：<span onclick="jumplink(this)">' + (song.artist || '未知歌手') + '</span>');
+    audioinfo.find('.span3').html('专辑：<span onclick="jumplink(this)">' + (song.album || '未知专辑') + '</span>');
     if (song.image) {
-        window.parent.document.getElementById('bg-low').style.backgroundImage = 'url(\"' + song.image + '\")';
-        window.parent.document.getElementById('bg').style.backgroundImage = 'url(\"' + song.image + '\")';
-        // window.parent.document.getElementById('bg').style.backgroundSize = '100% auto';
-        // window.parent.document.getElementById('bg').style.backgroundPosition = 'center center';
-        vinylimg.setAttribute('src', song.image);
-    } else if (window.parent.type == 'kugou'){
+        bgLow.css('background-image', 'url(\"' + song.image + '\")');
+        bg.css('background-image', 'url(\"' + song.image + '\")');
+        vinylimg.attr('src', song.image);
+    } else if (window.parent.type == 'kugou') {
         getAlbumImg(song.id);
-    }else{
-        window.parent.document.getElementById('bg-low').style.backgroundImage = null;
-        window.parent.document.getElementById('bg').style.backgroundImage = null;
-        vinylimg.setAttribute('src', '../image/novinyl.png');
-        var vinyl = window.parent.document.getElementById("vinyl");
-        vinyl.style.backgroundImage = 'url(../image/Vinyl_'+window.parent.type+'.png)';
+    } else {
+        bgLow.css('background-image', null);
+        bg.css('background-image', null);
+        vinylimg.attr('src', '../image/novinyl.png');
+        window.parent.$('#vinyl').css('backgroundImage', 'url(../image/Vinyl_' + window.parent.type + '.png)');
     }
-
-
-    // if(lyric[num]){
-    //     window.parent[1].songlrc = lyric[num];
-    //     window.parent[1].parseLyric();
-    // }else{
-    //     window.parent[1].songlrc = "";
-    //     window.parent[1].clearplay();
-    // }
 
     //改变当前播放歌曲列表的显示样式
     if (lastli != -1) {
         $("#li" + (lastli + 1) + " td:eq(1)").removeAttr("style");
         $("#li" + (lastli + 1) + " td:eq(0)").removeAttr("value");
     }
-    $("#li" + (num + 1) + " td:eq(1)").css("color", "rgb("+window.parent.color+")");
-    $("#li" + (num + 1) + " td:eq(0)").attr("value", "gif_"+window.parent.type);
+    $("#li" + (num + 1) + " td:eq(1)").css("color", "rgb(" + window.parent.color + ")");
+    $("#li" + (num + 1) + " td:eq(0)").attr("value", "gif_" + window.parent.type);
 
     this.num = num;
     lastli = num;
-    if (document.body.scrollTop > num * 39 - 436 && document.body.scrollTop < num * 39 + 44 || num == 0 || num == table.songs.size - 1) {
-        now();
-    }
 
     playSong(song.id);
 }
 
-//获取专辑图片
-function getAlbumImg(id){
+/**
+ * 获取专辑图片
+ * @param {歌曲id} id 
+ */
+function getAlbumImg(id) {
     let url = encodeURI('/getAlbumImg?param=' + id);
     $.ajax({
         url: url,
         success: function (result) {
-            var vinylimg = window.parent.document.getElementById("vinylimg");
-            if(result != null && result != '' && result != -1){
-                window.parent.document.getElementById('bg-low').style.backgroundImage = 'url(\"' + result + '\")';
-                window.parent.document.getElementById('bg').style.backgroundImage = 'url(\"' + result + '\")';
-                vinylimg.setAttribute('src', result);
-            }else{
-                window.parent.document.getElementById('bg-low').style.backgroundImage = null;
-                window.parent.document.getElementById('bg').style.backgroundImage = null;
-                vinylimg.setAttribute('src', '../image/novinyl.png');
-                var vinyl = window.parent.document.getElementById("vinyl");
-                vinyl.style.backgroundImage = 'url(../image/Vinyl_'+window.parent.type+'.png)';
+            let bg = window.parent.$('#bg');
+            let bgLow = window.parent.$('#bg-low');
+            let vinylimg = window.parent.$("#vinylimg");
+            if (result != null && result != '' && result != -1) {
+                bgLow.css('background-image', 'url(\"' + result + '\")');
+                bg.css('background-image', 'url(\"' + result + '\")');
+                vinylimg.attr('src', result);
+            } else {
+                bgLow.css('background-image', null);
+                bg.css('background-image', null);
+                vinylimg.attr('src', '../image/novinyl.png');
+                window.parent.$('#vinyl').css('backgroundImage', 'url(../image/Vinyl_' + window.parent.type + '.png)');
             }
         }
     });
 }
 
-//获取歌词
+/**
+ * 获取歌词
+ * @param {歌曲索引} idx 
+ */
 function getLyric(idx) {
     let duration = $('#audio')[0].duration;
     setTimeout(function () {
@@ -196,15 +201,12 @@ function getLyric(idx) {
     }, 100);
 }
 
-//定位当前歌曲
-function now() {
-    if (document.body.scrollTop <= num * 39 - 396 || document.body.scrollTop >= num * 39 + 4) {
-        $("html,body").animate({ "scrollTop": this.num * 39 - 196 });
-    }
-}
-
+/**
+ * 根据播放模式计算下一索引
+ * @param {播放模式} mode 
+ * @param {当前索引} num 
+ */
 function playmode(mode, num) {
-    //var nowli = document.getElementById("li"+num);
     let length = 0;
     switch (mode) {
         case 1:
@@ -225,15 +227,23 @@ function playmode(mode, num) {
         default: break;
     }
 }
+
+/**
+ * 切换播放图标状态
+ * @param {是否播放图标} val 
+ */
 function playgif(val) {
-    if (val == 1) {
-        $("#li" + (num + 1) + " td:eq(0)").attr("value", "gif_"+window.parent.type);
+    if (val) {
+        $("#li" + (num + 1) + " td:eq(0)").attr("value", "gif_" + window.parent.type);
     } else {
-        $("#li" + (num + 1) + " td:eq(0)").attr("value", "png_"+window.parent.type);
+        $("#li" + (num + 1) + " td:eq(0)").attr("value", "png_" + window.parent.type);
     }
 }
 
-//时间格式化00:00:00，将秒数转换为时分秒格式
+/**
+ * 时间格式化00:00:00，将秒数转换为时分秒格式
+ * @param {秒} time 
+ */
 function convertTime(time) {
     var hou = Math.floor(time / 3600);
     if (hou == 0) hou = "";
@@ -246,13 +256,11 @@ function convertTime(time) {
     return hou + "" + min + ":" + sec;
 }
 
-
-
 /**
  * URL编码
  * @param {要编码的URL} url 
  */
-function urlEncode(url){
+function urlEncode(url) {
     url = encodeURIComponent(url);
     url = url.replace(/\%3A/g, ":");
     url = url.replace(/\%2F/g, "/");
@@ -261,11 +269,3 @@ function urlEncode(url){
     url = url.replace(/\%26/g, "&");
     return url;
 }
-
-/*function hiddenNow(num){
-    if(num == 1){
-        $('.now').css('display','block');
-    }else{
-        $('.now').css('display','none');
-    }
-}*/

@@ -1,4 +1,7 @@
-﻿*{
+﻿[v-cloak] {
+    display: none !important;
+}
+*{
     margin  : 0px;
     padding : 0px;
     cursor  : default;
@@ -119,7 +122,7 @@ table{
     color      : rgba(0,0,0,0);
 }
 #list tr td[value="png_netease"]{
-    background : url('../image/pause.png') no-repeat center;
+    background : url('../image/pause_netease.png') no-repeat center;
     color      : rgba(0,0,0,0);
 }
 #list tr td[value="gif_qq"]{

@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE HTML>
-<html onclick="window.parent.hiddenwin()">
+<html>
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/audiolist.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>Vue.config.productionTip=false</script>
 </head>
-<body onload="init()">
-    <audio id="audio" >您的浏览器不支持audio标签</audio>
+<body>
+    <audio id="audio">您的浏览器不支持audio标签</audio>
     <div>
         <table id="title">
             <tr id="litop">
@@ -26,12 +26,6 @@
             </tr>
         </table>
     </div>
-        <!-- <div id="addfiles">
-            <img src="../image/addfiles.png" /><br />
-            <span>请扫描歌曲到本地列表</span>
-        </div>
-        <div class="addfiles" onclick="$('#files').click()">选择扫描目录</div> -->
-    <div class="now" onclick="now()" title="定位当前歌曲">&#xe83d;</div>
 </body>
     <script src="../js/base64utils.js"></script>
     <script src="../js-min/jquery.js"></script>
