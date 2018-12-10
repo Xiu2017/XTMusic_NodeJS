@@ -104,7 +104,6 @@ function changeSrc(mode, num) {
     if (table.songs == undefined) return;
 
     let vinylimg = window.parent.$("#vinylimg");
-    let audioinfo = window.parent[1].$("#audioinfo");
     let bg = window.parent.$('#bg');
     let bgLow = window.parent.$('#bg-low');
 
@@ -115,9 +114,6 @@ function changeSrc(mode, num) {
 
     let song = table.songs[num];
     window.parent.$("#song_name").html('<marquee behavior="alternate" truespeed="truespeed" scrolldelay="100" scrollamount="2">' + song.artist + ' - ' + song.title + '</marquee>');
-    audioinfo.find('.span1').html(song.title);
-    audioinfo.find('.span2').html('歌手：<span onclick="jumplink(this)">' + (song.artist || '未知歌手') + '</span>');
-    audioinfo.find('.span3').html('专辑：<span onclick="jumplink(this)">' + (song.album || '未知专辑') + '</span>');
     if (song.image) {
         bgLow.css('background-image', 'url(\"' + song.image + '\")');
         bg.css('background-image', 'url(\"' + song.image + '\")');
