@@ -68,17 +68,17 @@ function parseLyric() {
     //将歌词按段落切割存入数组当中
     let lyric = songlrc.split('\r\n');
     //遍历每行歌词
-    for (var i = 0; i < lyric.length; i++) {
+    for (const item of lyric) {
         //提取出时间
-        var d = lyric[i].match(/\[\d{2}:\d{2}((\.|\:)\d{2})\]/g);
+        var d = item.match(/\[\d{2}:\d{2}((\.|\:)\d{2})\]/g);
         //提取出歌词内容
-        var t = lyric[i].split(d);
+        var t = item.split(d);
         t = $.trim(t[1]);
         if (d != null) {
             //将时间进行处理
             var dt = String(d).split(':');
             var _t = parseInt(dt[0].split('[')[1]) * 60 + parseFloat(dt[1].split(']')[0]);
-            lrctime[i] = Math.round(_t * 100) / 100;
+            lrctime.push(Math.round(_t * 100) / 100);
             //将歌词内容写入列表
             lyricList.lyricData.push(t);
         }
